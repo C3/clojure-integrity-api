@@ -2,7 +2,8 @@
   (:require [clj-http.client :as http]
             [clj-http.util :as util]
             [clojure.xml :as xml]
-            [java-integrity-api.integrity :as i]))
+            [java-integrity-api.integrity :as i]
+            [clojure.walk :as trees]))
 
 (def url-encode util/url-encode)
 
@@ -23,20 +24,45 @@
 (defn rails-xml-to-data [xml]
   (rails-struct-map-to-data (get-struct-map xml)))
 
+(defn walk-transform-map [f a-map]
+  (trees/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) a-map))
+
+(defn surround-keys-with-brackets [a-map]
+  (let [surround (fn [[k v]] [(str "[" k "]") v])]
+    (walk-transform-map surround a-map)))
+
+(defn add-assign-chars [params]
+  (let [add-chars (fn [[k v]] (cond
+                                (map? v) [k v]
+                                (sequential? v) [(str k "[]=") v]
+                                :else [(str k "=") v]))]
+    (walk-transform-map add-chars params)))
+
+(defn urlencode-values [params]
+  (let [encode (fn [[k v]] (cond
+                             (map? v) [k v]
+                             (sequential? v) [k (map url-encode v)]
+                             :else [k (url-encode v)]))]
+    (walk-transform-map encode params)))
+
 (defn rails-params-hash-to-query-string [params]
   " clj-http unfortunately doesn't do this very well. Turned out to be quite
   a painful process"
-  (let [lists-of-terms
-        (for [[k v] params
-              res (cond
-                    (map? v) (map (fn [[keyname & r]] (cons (str "[" keyname "]") r) ) (query-to-string v))
-                    (sequential? v) (map #(str "[]=" (url-encode %)) v)
-                    :else [(str "=" (url-encode v))])]
-          (flatten [k res]))]
+  (let [brackets-added-subkeys (into params
+                                     (map (fn [[k v]] [k (surround-keys-with-brackets v)])
+                                          (filter (fn [[k v]] (map? v)) params)))
 
-    (clojure.string/join
-      "&"
-      (map #(apply str %) lists-of-terms))))
+        formatted (urlencode-values (add-assign-chars brackets-added-subkeys))]
+
+    (letfn [(explode-map [a-map]
+              (for [[k v] a-map
+                    res (cond
+                          (map? v) (explode-map v)
+                          (sequential? v) v
+                          :else [v])]
+                (flatten [k res])))]
+
+      (clojure.string/join "&" (map #(apply str %) (explode-map formatted))))))
 
 (defn integrity-get
   ([integrity path] (integrity-get integrity path nil))
