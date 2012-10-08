@@ -28,10 +28,12 @@
   (trees/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) a-map))
 
 (defn surround-keys-with-brackets [a-map]
+  "{a {b {c d}}} => {[a] {[b] {[c] d}}}"
   (let [surround (fn [[k v]] [(str "[" k "]") v])]
     (walk-transform-map surround a-map)))
 
 (defn add-assign-chars [params]
+  "{a {b {c [d e], f g} } } => {a {b {c[]= [d e], f= g}}}"
   (let [add-chars (fn [[k v]] (cond
                                 (map? v) [k v]
                                 (sequential? v) [(str k "[]=") v]
@@ -39,6 +41,7 @@
     (walk-transform-map add-chars params)))
 
 (defn urlencode-values [params]
+  "performs urlencode on the string values at the leaves"
   (let [encode (fn [[k v]] (cond
                              (map? v) [k v]
                              (sequential? v) [k (map url-encode v)]
