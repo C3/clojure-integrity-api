@@ -10,5 +10,5 @@
 (defn -searchAll [this integrity dataset] 
   (clojure.walk/stringify-keys (api/search (into {} integrity) dataset)))
 
-(defn -search [this integrity dataset qualifiers] 
+(defn -search [this integrity dataset qualifiers]
   (clojure.walk/stringify-keys (api/search (into {} integrity) dataset (into {} qualifiers))))
