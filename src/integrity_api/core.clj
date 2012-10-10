@@ -23,9 +23,9 @@
          params (assoc (i/qualifiers-to-params qualifiers) :per_page (str results-per-page))]
 
      (letfn [(get-results [page-num]
-               (let [results (i/search-results
-                               (service/integrity-get session path (assoc params :page (str page-num))))]
-                 (lazy-seq
+               (lazy-seq
+                 (let [results (i/search-results
+                                 (service/integrity-get session path (assoc params :page (str page-num))))]
                    (if (< (count results) results-per-page)
                      results
                      (concat results (get-results (inc page-num)))))))]
