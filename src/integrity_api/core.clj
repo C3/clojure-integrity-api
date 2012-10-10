@@ -1,6 +1,6 @@
-(ns java-integrity-api.core
-  (:require [java-integrity-api.http :as service]
-            [java-integrity-api.integrity :as i]))
+(ns integrity-api.core
+  (:require [integrity-api.http :as service]
+            [integrity-api.integrity :as i]))
 
 (defn login [hostname user password]
   (let [session (i/mksession hostname user password)]

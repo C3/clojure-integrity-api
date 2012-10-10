@@ -1,8 +1,8 @@
-(ns java-integrity-api.http
+(ns integrity-api.http
   (:require [clj-http.client :as http]
             [clj-http.util :as util]
             [clojure.xml :as xml]
-            [java-integrity-api.integrity :as i]
+            [integrity-api.integrity :as i]
             [clojure.walk :as trees]))
 
 (def url-encode util/url-encode)

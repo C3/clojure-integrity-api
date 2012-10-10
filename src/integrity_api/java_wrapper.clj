@@ -1,9 +1,9 @@
-(ns java-integrity-api.java-wrapper
-  (:require [java-integrity-api.core :as api]
+(ns integrity-api.java-wrapper
+  (:require [integrity-api.core :as api]
             [clojure.walk])
   (:gen-class
-    :name java_integrity_api.IntegrityJavaWrapper
-    :implements [java_integrity_api.IIntegrityApi]))
+    :name integrity_api.IntegrityJavaWrapper
+    :implements [integrity_api.IIntegrityApi]))
 
 (defn -login [this host user pass] (api/login host user pass))
 

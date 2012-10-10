@@ -1,4 +1,4 @@
-package java_integrity_api;
+package integrity_api;
 import java.util.*;
 public interface IIntegrityApi {
   List<Map<String,String>> searchAll(Map integrity,String datasetName);

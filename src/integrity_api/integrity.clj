@@ -1,4 +1,4 @@
-(ns java-integrity-api.integrity)
+(ns integrity-api.integrity)
 
 (defrecord Session [host user password])
 
