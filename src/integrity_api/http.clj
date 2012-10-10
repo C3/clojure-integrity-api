@@ -45,7 +45,7 @@
   (let [encode (fn [[k v]] (cond
                              (map? v) [k v]
                              (sequential? v) [k (map url-encode v)]
-                             :else [k (url-encode v)]))]
+                             :else [k (url-encode (str v))]))]
     (walk-transform-map encode params)))
 
 (defn rails-params-hash-to-query-string [params]

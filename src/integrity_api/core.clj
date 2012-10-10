@@ -20,12 +20,12 @@
          path (str "datasets/" dataset-id "/search_results.xml")
          results-per-page 200
          session (i/session integrity)
-         params (assoc (i/qualifiers-to-params qualifiers) :per_page (str results-per-page))]
+         params (assoc (i/qualifiers-to-params qualifiers) :per_page results-per-page)]
 
      (letfn [(get-results [page-num]
                (lazy-seq
                  (let [results (i/search-results
-                                 (service/integrity-get session path (assoc params :page (str page-num))))]
+                                 (service/integrity-get session path (assoc params :page page-num)))]
                    (if (< (count results) results-per-page)
                      results
                      (concat results (get-results (inc page-num)))))))]
