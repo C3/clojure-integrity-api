@@ -1,3 +1,29 @@
+# Java/Clojure API For the Integrity Web Service.
+Currently only the search components of the API are considered stable.
+
+For a Java environment, a jar is provided that includes all
+dependencies, just add it to the classpath
+
+## Java usage:
+
+    import integrity_api;
+    import java.util.*;
+    ...
+    IIntegrityApi api = new IntegrityJavaWrapper();
+    
+For a clojure environemt, well you probably already know what to do
+
+## clojure usage:
+
+  (:require [integrity-api.core])
+
+This software is provided for the convenience of developers looking to
+integrate with an Integrity instance from a JVM environment. It is provided freely with minimal restrictions on its usage (see copyright notice above). We hope you find it useful.
+
+Happy hacking,
+C3 Products
+ 
+## Licensing
  Copyright (C) 2012 C3 Products
 
  Permission is hereby granted, free of charge, to any person obtaining a
@@ -19,28 +45,3 @@
  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
  USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-# Java/Clojure API For the Integrity Web Service.
-Currently only the search components of the API are considered stable.
-
-For a Java environment, a jar is provided that includes all
-dependencies, just add it to the classpath
-
-## Java usage:=
-
-    import integrity_api;
-    import java.util.*;
-    ...
-    IIntegrityApi api = new IntegrityJavaWrapper();
-    
-For a clojure environemt, well you probably already know what to do
-
-## clojure usage:
-
-  (:require [integrity-api.core])
-
-This software is provided for the convenience of developers looking to
-integrate with an Integrity instance from a JVM environment. It is provided freely with minimal restrictions on its usage (see copyright notice above). We hope you find it useful.
-
-Happy hacking,
-C3 Products
