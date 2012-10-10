@@ -17,10 +17,18 @@
 
   ([integrity dataset-name qualifiers]
    (let [dataset-id (i/dataset-id (i/find-dataset integrity dataset-name))
-         path (str "datasets/" dataset-id "/search_results.xml")]
+         path (str "datasets/" dataset-id "/search_results.xml")
+         results-per-page 200
+         session (i/session integrity)
+         params (assoc (i/qualifiers-to-params qualifiers) :per_page (str results-per-page))]
 
-     (i/search-results
-       (service/integrity-get (i/session integrity)
-                              path
-                              (i/qualifiers-to-params qualifiers))))))
+     (letfn [(get-results [page-num]
+               (let [results (i/search-results
+                               (service/integrity-get session path (assoc params :page (str page-num))))]
+                 (lazy-seq
+                   (if (< (count results) results-per-page)
+                     results
+                     (concat results (get-results (inc page-num)))))))]
+
+       (get-results 1)))))
 
