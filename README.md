@@ -1,6 +1,13 @@
 # Java/Clojure API For the Integrity Web Service.
 Currently only the search components of the API are considered stable.
 
+This software is provided for the convenience of developers looking to
+integrate with an Integrity instance from a JVM environment. It is
+provided freely with minimal restrictions on its usage (see copyright notice below). We hope you find it useful.
+
+Happy hacking,
+C3 Products
+
 ## Java usage:
 For a Java environment, a jar is provided that includes all
 dependencies, just add it to the classpath
@@ -14,13 +21,6 @@ dependencies, just add it to the classpath
 For a clojure environemt, well you probably already know what to do
 
     (:require [integrity-api.core])
-
-This software is provided for the convenience of developers looking to
-integrate with an Integrity instance from a JVM environment. It is
-provided freely with minimal restrictions on its usage (see copyright notice below). We hope you find it useful.
-
-Happy hacking,
-C3 Products
  
 ## Licensing
  Copyright (C) 2012 C3 Products
