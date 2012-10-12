@@ -1,1 +1,44 @@
-project moved to http://github.com/c3/clojure-integrity-api
+# Java/Clojure API For the Integrity Web Service.
+Currently only the search components of the API are considered stable.
+
+This software is provided for the convenience of developers looking to
+integrate with an Integrity instance from a JVM environment. It is
+provided freely with minimal restrictions on its usage (see copyright notice below). We hope you find it useful.
+
+Happy hacking,
+C3 Products
+
+## Get:
+https://clojars.org/integrity-api
+
+## Java usage:
+    import integrity_api;
+    import java.util.*;
+    ...
+    IIntegrityApi api = new IntegrityJavaWrapper();
+    
+## clojure usage:
+    (:require [integrity-api.core])
+ 
+## Licensing
+ Copyright (C) 2012 C3 Products
+
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to
+ whom the Software is furnished to do so,
+ subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+ USE OR OTHER DEALINGS IN THE SOFTWARE.
+
