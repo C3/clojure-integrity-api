@@ -58,7 +58,7 @@
 
         formatted (urlencode-values (add-assign-chars brackets-added-subkeys))]
 
-    (clojure.string/join "&" (map #(apply str %) (util/flatten-tree formatted)))))
+    (clojure.string/join "&" (map #(clojure.string/join "" %) (util/flatten-tree formatted)))))
 
 (defn integrity-get
   ([integrity path] (integrity-get integrity path nil))
