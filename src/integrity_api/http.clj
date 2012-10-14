@@ -1,11 +1,12 @@
 (ns integrity-api.http
   (:require [clj-http.client :as http]
-            [clj-http.util :as util]
+            [clj-http.util :as urls]
             [clojure.xml :as xml]
             [integrity-api.integrity :as i]
+            [integrity-api.util :as util]
             [clojure.walk :as trees]))
 
-(def url-encode util/url-encode)
+(def url-encode urls/url-encode)
 
 (defn get-struct-map [xml]
   (let [stream (java.io.ByteArrayInputStream. (.getBytes xml))]
@@ -57,15 +58,7 @@
 
         formatted (urlencode-values (add-assign-chars brackets-added-subkeys))]
 
-    (letfn [(explode-map [a-map]
-              (for [[k v] a-map
-                    res (cond
-                          (map? v) (explode-map v)
-                          (sequential? v) v
-                          :else [v])]
-                (flatten [k res])))]
-
-      (clojure.string/join "&" (map #(apply str %) (explode-map formatted))))))
+    (clojure.string/join "&" (map #(apply str %) (util/flatten-tree formatted)))))
 
 (defn integrity-get
   ([integrity path] (integrity-get integrity path nil))
