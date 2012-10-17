@@ -1,0 +1,52 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+-availableDatasets	src/integrity_api/java_wrapper.clj	/^(defn -availableDatasets [this integrity]$/;"	f
+-availableQualifiers	src/integrity_api/java_wrapper.clj	/^(defn -availableQualifiers [this integrity datasetName]$/;"	f
+-login	src/integrity_api/java_wrapper.clj	/^(defn -login [this host user pass] (api\/login host user pass))$/;"	f
+-search	src/integrity_api/java_wrapper.clj	/^(defn -search [this integrity dataset qualifiers]$/;"	f
+-searchAll	src/integrity_api/java_wrapper.clj	/^(defn -searchAll [this integrity dataset] $/;"	f
+IIntegrityApi	src/java-src/integrity_api/IIntegrityApi.java	/^public interface IIntegrityApi {$/;"	i
+Integrity	src/integrity_api/integrity.clj	/^(defrecord Integrity [session config])$/;"	f
+Session	src/integrity_api/integrity.clj	/^(defrecord Session [host user password])$/;"	f
+add-assign-chars	src/integrity_api/http.clj	/^(defn add-assign-chars [params]$/;"	f
+available-datasets	src/integrity_api/core.clj	/^(defn available-datasets [integrity]$/;"	f
+available-qualifiers	src/integrity_api/core.clj	/^(defn available-qualifiers [integrity dataset-name]$/;"	f
+available-qualifiers	src/integrity_api/integrity.clj	/^(defn available-qualifiers [integrity dataset-name]$/;"	f
+availableDatasets	src/java-src/integrity_api/IIntegrityApi.java	/^  Collection<String> availableDatasets(Map integrity);$/;"	m	interface:IIntegrityApi
+availableQualifiers	src/java-src/integrity_api/IIntegrityApi.java	/^  Map<String,Collection<String>> availableQualifiers(Map integrity, String datasetName);$/;"	m	interface:IIntegrityApi
+config	src/integrity_api/integrity.clj	/^(def config :config)$/;"	f
+dataset-id	src/integrity_api/integrity.clj	/^(def dataset-id :id)$/;"	f
+dataset-name	src/integrity_api/integrity.clj	/^(def dataset-name :name)$/;"	f
+datasets	src/integrity_api/integrity.clj	/^(defn datasets [config]$/;"	f
+find-dataset	src/integrity_api/integrity.clj	/^(defn find-dataset [integrity dataset-name]$/;"	f
+flatten-tree	src/integrity_api/util.clj	/^(defn flatten-tree [tree]$/;"	f
+get-config	src/integrity_api/http.clj	/^(defn get-config [integrity]$/;"	f
+get-struct-map	src/integrity_api/http.clj	/^(defn get-struct-map [xml]$/;"	f
+host	src/integrity_api/integrity.clj	/^(def host :host)$/;"	f
+integrity-api	project.clj	/^(defproject integrity-api "0.1.0"$/;"	f
+integrity-get	src/integrity_api/http.clj	/^(defn integrity-get$/;"	f
+integrity_api	src/java-src/integrity_api/IIntegrityApi.java	/^package integrity_api;$/;"	p
+login	src/integrity_api/core.clj	/^(defn login [hostname user password]$/;"	f
+login	src/java-src/integrity_api/IIntegrityApi.java	/^  Map login(String hostName,String userName,String password);$/;"	m	interface:IIntegrityApi
+mkintegrity	src/integrity_api/integrity.clj	/^(defn mkintegrity [session config] (Integrity. session config))$/;"	f
+mksession	src/integrity_api/integrity.clj	/^(defn mksession [host user password] (Session. host user password))$/;"	f
+password	src/integrity_api/integrity.clj	/^(def password :password)$/;"	f
+qualifiers-to-params	src/integrity_api/integrity.clj	/^(defn qualifiers-to-params [qualifiers]$/;"	f
+rails-params-hash-to-query-string	src/integrity_api/http.clj	/^(defn rails-params-hash-to-query-string [params]$/;"	f
+rails-struct-map-to-data	src/integrity_api/http.clj	/^(defn rails-struct-map-to-data [garbage]$/;"	f
+rails-xml-to-data	src/integrity_api/http.clj	/^(defn rails-xml-to-data [xml]$/;"	f
+search	src/integrity_api/core.clj	/^(defn search$/;"	f
+search	src/java-src/integrity_api/IIntegrityApi.java	/^  Collection<Map<String,String>> search(Map integrity, String datasetName, Map<String,Collection<String>> qualifiers);$/;"	m	interface:IIntegrityApi
+search-results	src/integrity_api/integrity.clj	/^(def search-results (comp first vals))$/;"	f
+searchAll	src/java-src/integrity_api/IIntegrityApi.java	/^  Collection<Map<String,String>> searchAll(Map integrity,String datasetName);$/;"	m	interface:IIntegrityApi
+session	src/integrity_api/integrity.clj	/^(def session :session)$/;"	f
+surround-keys-with-brackets	src/integrity_api/http.clj	/^(defn surround-keys-with-brackets [a-map]$/;"	f
+uat-integration	test/integrity_api/test/core.clj	/^(deftest uat-integration$/;"	f
+url-encode	src/integrity_api/http.clj	/^(def url-encode urls\/url-encode)$/;"	f
+urlencode-values	src/integrity_api/http.clj	/^(defn urlencode-values [params]$/;"	f
+user	src/integrity_api/integrity.clj	/^(def user :user)$/;"	f
+walk-transform-map	src/integrity_api/http.clj	/^(defn walk-transform-map [f a-map]$/;"	f
