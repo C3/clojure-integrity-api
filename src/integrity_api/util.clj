@@ -5,3 +5,4 @@
     (map? tree) (mapcat (fn [[k v]] (map #(cons k %) (flatten-tree v))) tree)
     (sequential? tree) (mapcat flatten-tree tree)
     :else (list (list tree))))
+

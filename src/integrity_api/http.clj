@@ -41,6 +41,11 @@
                                 :else [(str k "=") v]))]
     (walk-transform-map add-chars params)))
 
+(defn stringify-values [params]
+  "{a {b {c 1 d 3}}} => {a {b {c '1' d '2'}}}"
+  (let [stringify-value (fn [[k v]] [k (str v)])]
+    (walk-transform-map stringify-value params)))
+
 (defn urlencode-values [params]
   "performs urlencode on the string values at the leaves"
   (let [encode (fn [[k v]] (cond
@@ -52,11 +57,12 @@
 (defn rails-params-hash-to-query-string [params]
   " clj-http unfortunately doesn't do this very well. Turned out to be quite
   a painful process"
-  (let [brackets-added-subkeys (into params
+  (let [string-params (trees/stringify-keys params)
+        brackets-added-subkeys (into string-params
                                      (map (fn [[k v]] [k (surround-keys-with-brackets v)])
-                                          (filter (fn [[k v]] (map? v)) params)))
+                                          (filter (fn [[k v]] (map? v)) string-params)))
 
-        formatted (urlencode-values (add-assign-chars brackets-added-subkeys))]
+        formatted (urlencode-values (stringify-values (add-assign-chars brackets-added-subkeys)))]
 
     (clojure.string/join "&" (map #(clojure.string/join "" %) (util/flatten-tree formatted)))))
 

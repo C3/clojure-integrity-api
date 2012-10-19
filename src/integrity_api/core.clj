@@ -32,3 +32,26 @@
 
        (get-results 1)))))
 
+(defn activity [integrity]
+  (let [path "api/activity.xml"
+        session (i/session integrity)
+        per-page 100]
+
+    (letfn [(do-request [max-activity-num]
+              (i/activity-results
+                (if max-activity-num
+                  (service/integrity-get session path {:limit per-page :max_activity_num max-activity-num})
+                  (service/integrity-get session path {:limit per-page}))))
+
+
+            (activities-older-than [oldest-activity-num]
+              (lazy-seq
+                (let [activities (do-request oldest-activity-num)]
+                  (if (empty? activities)
+                    []
+                    (concat activities (activities-older-than (dec (read-string (:activity-num (last activities))))))))))]
+
+      (activities-older-than nil))))
+
+(defn dataset-configs [integrity]
+  (i/datasets (i/config integrity)))

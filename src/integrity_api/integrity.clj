@@ -15,14 +15,16 @@
 (def host :host)
 
 (defn datasets [config]
-  (:datasets
-    (:user-access-group-authorisation config)))
+  (reduce #(assoc %1 (:id %2) %2)
+          {}
+          (:datasets
+            (:user-access-group-authorisation config))))
 
 (def dataset-name :name)
 (def dataset-id :id)
 
-(defn find-dataset [integrity dataset-name]
-  (first (filter #(= dataset-name (:name %)) (datasets (config integrity)))))
+(defn find-dataset [integrity name-to-find]
+  (first (filter #(= name-to-find (dataset-name %)) (vals (datasets (config integrity))))))
 
 (defn qualifiers-to-params [qualifiers]
   (let [qualifier-params
@@ -46,4 +48,5 @@
 
       (throw (Exception. "No such dataset")))))
 
+(def activity-results (comp first vals))
 (def search-results (comp first vals))
