@@ -48,5 +48,6 @@
 
       (throw (Exception. "No such dataset")))))
 
-(def activity-results (comp first vals))
-(def search-results (comp first vals))
+(def activity-results :activities)
+
+(defn search-results [service-output] (first (vals service-output)))

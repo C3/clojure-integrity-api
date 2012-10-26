@@ -13,11 +13,16 @@
     (xml/parse stream)))
 
 (defn rails-struct-map-to-data [garbage]
-  (letfn [(convert-item [item]
+  (letfn [(convert-array-item [array-element]
+            (if (nil? array-element)
+              '()
+              (map #(reduce merge (map convert-item (:content %))) array-element)))
+
+          (convert-item [item]
             (if (map? item)
               (let [{:keys [tag content attrs]} item]
                 (if (and attrs (:type attrs) (= "array" (:type attrs)))
-                  {tag (mapcat vals (map convert-item content))}
+                  {tag (convert-array-item content)}
                   {tag (reduce merge (map convert-item content))}))
               item))]
     (convert-item garbage)))
@@ -41,11 +46,6 @@
                                 :else [(str k "=") v]))]
     (walk-transform-map add-chars params)))
 
-(defn stringify-values [params]
-  "{a {b {c 1 d 3}}} => {a {b {c '1' d '2'}}}"
-  (let [stringify-value (fn [[k v]] [k (str v)])]
-    (walk-transform-map stringify-value params)))
-
 (defn urlencode-values [params]
   "performs urlencode on the string values at the leaves"
   (let [encode (fn [[k v]] (cond
@@ -62,7 +62,7 @@
                                      (map (fn [[k v]] [k (surround-keys-with-brackets v)])
                                           (filter (fn [[k v]] (map? v)) string-params)))
 
-        formatted (urlencode-values (stringify-values (add-assign-chars brackets-added-subkeys)))]
+        formatted (urlencode-values (add-assign-chars brackets-added-subkeys))]
 
     (clojure.string/join "&" (map #(clojure.string/join "" %) (util/flatten-tree formatted)))))
 
