@@ -1,6 +1,6 @@
 (ns integrity-api.test.http
   (:use [integrity-api.http])
-  (:use [clojure.test]))
+  (:use [midje.sweet]))
 
 (def horrible-fixture-of-death
   {:tag :user-access-group-authorisation, :attrs nil,
@@ -35,23 +35,22 @@
                                     :content [{:tag :dataset-format, :attrs nil,
                                                :content [{:tag :name, :attrs nil, :content ["csv"]}
                                                          {:tag :parser-type, :attrs nil, :content ["CSV"]}]}]}]}]}]})
-(def expected-result-of-fixture
-  {:user-access-group-authorisation {:name "root"
-                                     :datasets [{:id "1"
-                                                 :name "Regions"
-                                                 :is-bulk-allowed "true"
-                                                 :is-incremental-allowed "true"
-                                                 :table-name "e_regions"
-                                                 :qualifiers []
-                                                 :dataset-formats [{:name "csv" :parser-type "CSV"}]}
-                                                {:id "2"
-                                                 :name "Sales People"
-                                                 :is-bulk-allowed "true"
-                                                 :is-incremental-allowed "true"
-                                                 :table-name "e_sales_people"
-                                                 :qualifiers [{:dataset-attribute-name "Sales Region"
-                                                               :valid-values ["1" "2" "4" "3"]}]
-                                                 :dataset-formats [{:name "csv" :parser-type "CSV"}]}]}})
 
-(deftest rails-structmap-convert-huge-fixture
-         (is (= expected-result-of-fixture (rails-struct-map-to-data horrible-fixture-of-death))))
+(fact "sample xml converts to clojure data"
+      (rails-struct-map-to-data horrible-fixture-of-death) =>
+      {:user-access-group-authorisation {:name "root"
+                                         :datasets [{:id "1"
+                                                     :name "Regions"
+                                                     :is-bulk-allowed "true"
+                                                     :is-incremental-allowed "true"
+                                                     :table-name "e_regions"
+                                                     :qualifiers []
+                                                     :dataset-formats [{:name "csv" :parser-type "CSV"}]}
+                                                    {:id "2"
+                                                     :name "Sales People"
+                                                     :is-bulk-allowed "true"
+                                                     :is-incremental-allowed "true"
+                                                     :table-name "e_sales_people"
+                                                     :qualifiers [{:dataset-attribute-name "Sales Region"
+                                                                   :valid-values ["1" "2" "4" "3"]}]
+                                                     :dataset-formats [{:name "csv" :parser-type "CSV"}]}]}})

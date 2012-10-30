@@ -1,9 +1,9 @@
 (ns integrity-api.test.core
   (:use [integrity-api.core])
-  (:use [clojure.test]))
+  (:use [midje.sweet]))
 
-(deftest ^:integration uat-integration
+(fact "I can get some rows from the uat server"
   (let [host (login "http://uat.c3hosted.com" "java_api" "thyhidema")
         result (search host "victorian cities")]
-    (is (not (empty? result)))))
+    result => (comp not empty?)))
 
